@@ -1736,3 +1736,12 @@ function startRetakeQuiz() {
     score = 0; // Reset score
     loadQuestion(currentQuestionIndex); // Start the retake quiz
 }
+
+function displayResults() {
+    quizDiv.innerHTML = `<h2>Quiz Finished!</h2><p>Your final score is: ${score} out of ${quizQuestions.length}</p>`;
+    const retakeButton = document.createElement('button');
+    retakeButton.textContent = 'Retake Incorrect Questions';
+    retakeButton.onclick = startRetakeQuiz;
+    quizDiv.appendChild(retakeButton);
+}
+
