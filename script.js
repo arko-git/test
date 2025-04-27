@@ -1727,3 +1727,12 @@ function checkAnswer() {
         incorrectQuestions.push(index);
     }
 }
+
+function startRetakeQuiz() {
+    // Filter questions for retake
+    const retakeQuestions = incorrectQuestions.map(index => quizQuestions[index]);
+    quizQuestions = retakeQuestions; // Temporarily replace quizQuestions with incorrect questions
+    currentQuestionIndex = 0;
+    score = 0; // Reset score
+    loadQuestion(currentQuestionIndex); // Start the retake quiz
+}
