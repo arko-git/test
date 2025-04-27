@@ -1701,3 +1701,29 @@ document.addEventListener('DOMContentLoaded', () => {
     generateQuestionList(); // Generate the question list in the side panel
     loadQuestion(currentQuestionIndex); // Load the first question
 });
+
+const incorrectQuestions = []; // Array to store indices of incorrectly answered questions
+
+function checkAnswer() {
+    const index = currentQuestionIndex;
+    const questionData = quizQuestions[index];
+    const selectedOptions = []; // Store user's selected options
+    const inputs = document.querySelectorAll(`input[name="q${index + 1}"]`);
+
+    // Gather selected options
+    inputs.forEach(input => {
+        if (input.checked) {
+            selectedOptions.push(input.value);
+        }
+    });
+
+    const correctOptions = questionData.correctAnswer;
+    const isCorrect = questionData.type === 'single'
+        ? selectedOptions.length === 1 && selectedOptions[0] === correctOptions[0]
+        : selectedOptions.length === correctOptions.length && selectedOptions.every(option => correctOptions.includes(option));
+
+    // Track incorrect questions
+    if (!isCorrect && !incorrectQuestions.includes(index)) {
+        incorrectQuestions.push(index);
+    }
+}
